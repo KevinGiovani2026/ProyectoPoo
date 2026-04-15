@@ -1,4 +1,6 @@
-class Pokemon:
+from abc import ABC, abstractmethod #segundo dia convertimos la clase pokemon en una clase abstracta, es decir, no se pueden crear objetos de esta clase, solo se pueden crear objetos de las clases que hereden de esta clase abstracta.
+
+class Pokemon(ABC):
     nombre = ""
     hp_actual = 100
     hp_maximo = 100
@@ -26,36 +28,47 @@ class Pokemon:
 
     @hp_actual.setter
     def hp_actual (self, hp_actual):
-        pass
+        if hp_actual < 0:
+            self.__hp_actual = 0
+        elif hp_actual > self.hp_maximo:
+            self.__hp_actual = self.hp_maximo
+        else:
+            self.__hp_actual = hp_actual
+
 
     @energia_actual.setter
     def energia_actual (self, energia_actual):
+        if energia_actual < 0:
+            self.__energia_actual = 0
+        elif energia_actual > self.energia_maxima:
+            self.__energia_actual = self.energia_maxima
+        else:
+            self.__energia_actual = energia_actual
+
+    @abstractmethod
+    def ataque(self):
         pass
 
-    def ataque():
+    def defensa(self, daño):
         pass
 
-    def defensa():
-        pass
-
-    def descanso():
+    def descanso(self):
         pass
 
 class Agua(Pokemon):
-        # def lanzar_hechizo(self):
-        #     print("!El mago lanza una bola de fuego!") 
-        pass
+        def ataque(self): #nos aseguramos de implementar el método ataque en cada clase hija, ya que es un método abstracto en la clase padre.
+         pass
+        
 
 class Fuego(Pokemon):
-        # def lanzar_hechizo(self):
-        #     print("!El mago lanza una bola de fuego!") 
-        pass
+        def ataque(self):
+         pass
 
 class Planta(Pokemon):
-        # def lanzar_hechizo(self):
-        #     print("!El mago lanza una bola de fuego!") 
-        pass
+        def ataque(self):
+         pass
 
 class Electrico(Pokemon):
-        pass
+        def ataque(self):
+         pass
 
