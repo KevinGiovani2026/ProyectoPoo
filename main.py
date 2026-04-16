@@ -19,12 +19,12 @@ class Pokemon(ABC):
     @property
     def hp_actual(self):
         return self.__hp_actual 
-    pass
+    
 
     @property
     def energia_actual(self):
         return self.__energia_actual
-    pass
+    
 
     @hp_actual.setter
     def hp_actual (self, hp_actual):
@@ -55,6 +55,14 @@ class Pokemon(ABC):
     def descanso(self):
         pass
 
+    def validar_clase(self, clase): #investigar como funciona el siguiente ejemplo
+        if clase in ["Agua", "Fuego", "Planta", "Electrico"]:
+            return True
+        else:
+            return False
+        
+        
+    
 class Agua(Pokemon):
         def ataque(self): #nos aseguramos de implementar el método ataque en cada clase hija, ya que es un método abstracto en la clase padre.
          pass
