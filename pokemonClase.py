@@ -8,7 +8,7 @@ class Pokemon(ABC):
         self.hp_maximo = hp_maximo
         self.__energia_actual = energia_actual
         self.energia_maxima = energia_maxima
-        pass
+        
 
     @property
     def hp_actual(self):
@@ -40,17 +40,17 @@ class Pokemon(ABC):
             self.__energia_actual = energia_actual
 
     @abstractmethod
-    def ataque(self):
+    def ataque(self, oponente):
         pass
 
-    def defensa(self, daño):
+    def defensa(self, damage):
         pass
 
     def descanso(self):
         pass
 
-    def validar_clase(self, clase): #investigar como funciona el siguiente ejemplo
-        if clase in ["Agua", "Fuego", "Planta", "Electrico"]:
-            return True
-        else:
-            return False
+    # def validar_clase(self, clase): #investigar como funciona el siguiente ejemplo
+    #     if clase in ["Agua", "Fuego", "Planta", "Electrico"]:
+    #         return True
+    #     else:
+    #         return False
