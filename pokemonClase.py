@@ -43,7 +43,7 @@ class Pokemon(ABC):
     def ataque(self, oponente):
         pass
 
-    def defensa(self, damage):
+    def defensa(self,):
 
         def defender(self):
             costo_energia = 5
