@@ -44,13 +44,20 @@ class Pokemon(ABC):
         pass
 
     def defensa(self, damage):
-        pass
+
+        def defender(self):
+            costo_energia = 5
+            
+            if self.energia_actual >= costo_energia:
+                self.energia_actual -= costo_energia
+
+            else:
+                print("No tiene suficiente energía para defenderse.")
 
     def descanso(self):
-        pass
+        recuperacion = 20
+        self.energia_actual += recuperacion
+        print(f"{self.nombre} ha descansado y recuperado {recuperacion} de energía.")
+        
 
-    # def validar_clase(self, clase): #investigar como funciona el siguiente ejemplo
-    #     if clase in ["Agua", "Fuego", "Planta", "Electrico"]:
-    #         return True
-    #     else:
-    #         return False
+  
