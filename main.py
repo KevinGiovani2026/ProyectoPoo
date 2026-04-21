@@ -46,8 +46,19 @@ def realizar_turno(atacante, defensor, es_computadora=False):
         opcion = random.choice(["1", "2", "3"])
         print(f"Computadora elige: {'Atacar' if opcion == '1' else 'Defender' if opcion == '2' else 'Descansar'}")
     else:
-        print("1. Atacar | 2. Defender | 3. Descansar")
-        opcion = input("Elige una acción: ")
+        while True:
+            try:
+                print("1. Atacar | 2. Defender | 3. Descansar")
+                opcion = input("Elige una acción (1-3): ")
+                
+                
+                if opcion not in ["1", "2", "3"]:
+                    raise ValueError("Opción fuera de rango.")
+                
+                break 
+                
+            except ValueError:
+                print("Entrada no válida. Por favor, ingresa un número entre 1 y 3.")
     
     if opcion == "1":
         atacante.ataque(defensor)
