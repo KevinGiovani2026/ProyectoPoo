@@ -8,11 +8,12 @@ class Planta(Pokemon):
 
 
         def ataque(self,oponente):
-                validar_objeto = oponente
-                if oponente.__class__.__name__ == "Agua":
-                        damage = 20 
-                        oponente.hp_actual -= damage
-                        
+                from pokemon_clase_agua import Agua 
+                if isinstance(oponente, Agua):
+                       damage = 20
+                       
                 else:
-                        oponente.hp_actual -= 10
+                        damage = 10
+                        
+                oponente.hp_actual -= damage
          

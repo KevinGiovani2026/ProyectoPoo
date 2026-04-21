@@ -1,3 +1,4 @@
+
 from pokemonClase import Pokemon
 
 
@@ -9,12 +10,12 @@ class Agua(Pokemon):
 
 
         def ataque(self, oponente):
-                validar_objeto = oponente
-                if oponente.__class__.__name__ == "Fuego":
-                        damage = 20 
-                        oponente.hp_actual -= damage
-                        
+                from pokemon_clase_fuego import Fuego 
+                if isinstance(oponente, Fuego):
+                        damage = 20
                 else:
-                        oponente.hp_actual -= 10
+                        damage = 10
+                
+                oponente.hp_actual -= damage
 
 

@@ -9,11 +9,11 @@ class Fuego(Pokemon):
         
 
         def ataque(self, oponente):
-                validar_objeto = oponente
-                if oponente.__class__.__name__ == "Planta":
-                        damage = 20 
-                        oponente.hp_actual -= damage
-
+                from pokemon_clase_planta import Planta
+                if isinstance(oponente, Planta):
+                       damage = 20
                 else:
-                        oponente.hp_actual -= 10
+                        damage = 10
+                        
+                oponente.hp_actual -= damage
 
