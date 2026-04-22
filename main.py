@@ -8,13 +8,13 @@ from pokemon_clase_electrico import Electrico
 from pokemon_clase_fuego import Fuego
 from pokemon_clase_planta import Planta
 
-def seleccionar_pokemon(turno_computadora = None):
+def seleccionar_pokemon(turno_computadora = None, entrenador = "Jugador"):
     if turno_computadora:
         seleccion = turno_computadora
     
     else:
-        print("Elige tu Pokémon:")
-        print("tipo 1. Agua | tipo 2. Electrico | tipo 3. Fuego | tipo 4. Planta")
+        print(f"{entrenador}, elige tu Pokémon:")
+        mostrar_catalogo_disponible()
         seleccion = input("Ingresa el número: ")
     
     if seleccion not in CATALOGO_POKEMON:
@@ -23,20 +23,20 @@ def seleccionar_pokemon(turno_computadora = None):
     
     datos = CATALOGO_POKEMON[seleccion]
     
-    if seleccion == "1":
+    if datos["tipo"] == "Agua":
         mi_pokemon = Agua(datos["nombre"], datos["hp_maximo"], datos["hp_maximo"], datos["energia_maxima"], datos["energia_maxima"]) 
-    elif seleccion == "2":
+    elif datos["tipo"] == "Electrico":
         mi_pokemon = Electrico(datos["nombre"], datos["hp_maximo"], datos["hp_maximo"], datos["energia_maxima"], datos["energia_maxima"])
-    elif seleccion == "3":
+    elif datos["tipo"] == "Fuego":
         mi_pokemon = Fuego(datos["nombre"], datos["hp_maximo"], datos["hp_maximo"], datos["energia_maxima"], datos["energia_maxima"])
-    elif seleccion == "4":
+    elif datos["tipo"] == "Planta":
         mi_pokemon = Planta(datos["nombre"], datos["hp_maximo"], datos["hp_maximo"], datos["energia_maxima"], datos["energia_maxima"])
     else:
         print("Opción inválida")
         return None  
         
     
-    print(f"¡Has seleccionado a {mi_pokemon.nombre}!")
+    print(f"¡{entrenador} seleccionó a {mi_pokemon.nombre}!")
     return mi_pokemon
 
 def realizar_turno(atacante, defensor, es_computadora=False):
@@ -67,21 +67,21 @@ def realizar_turno(atacante, defensor, es_computadora=False):
     elif opcion == "3":
         atacante.descanso()
 
-def iniciar_batalla(p1, p2, modo_vs_cpu=False):
+def iniciar_batalla(pokemon_jugador, pokemon_rival, modo_vs_cpu=False):
     turno = 1
-    while p1.hp_actual > 0 and p2.hp_actual > 0:
-        print(f"\n--- Turno {turno} ---")
+    while pokemon_jugador.hp_actual > 0 and pokemon_rival.hp_actual > 0:
+        print(f"\n--- Round numero {turno} ---")
         
-        # Turno Jugador 1
-        realizar_turno(p1, p2, es_computadora=False)
-        if p2.hp_actual <= 0:
-            print(f"¡{p2.nombre} ha sido derrotado! {p1.nombre} gana.")
+        
+        realizar_turno(atacante=pokemon_jugador, defensor=pokemon_rival, es_computadora=False)
+        if pokemon_rival.hp_actual <= 0:
+            print(f"¡{pokemon_rival.nombre} ha sido derrotado! {pokemon_jugador.nombre} gana.")
             break
             
-        # Turno Jugador 2 o Computadora
-        realizar_turno(p2, p1, es_computadora=modo_vs_cpu)
-        if p1.hp_actual <= 0:
-            print(f"¡{p1.nombre} ha sido derrotado! {p2.nombre} gana.")
+       
+        realizar_turno(atacante=pokemon_rival, defensor=pokemon_jugador, es_computadora=modo_vs_cpu)
+        if pokemon_jugador.hp_actual <= 0:
+            print(f"¡{pokemon_jugador.nombre} ha sido derrotado! {pokemon_rival.nombre} gana.")
             break
             
         turno += 1
@@ -97,28 +97,36 @@ while True:
     print("2. Jugador vs Computadora")
 
     opcion = input("SELECCIONE MODO DE JUEGO:")
+    
     if opcion == "1":
-        mostrar_catalogo_disponible()
-        print("Turno Jugador 1")
-        pokemon1 = seleccionar_pokemon()
-        if pokemon1 is None:
-            print("No se pudo seleccionar un Pokémon válido.")
-        else:
+        while True:
+            print("Turno Jugador 1")
+            pokemon1 = seleccionar_pokemon()
+            if pokemon1:
+                break 
+            print("Inténtalo de nuevo...")
+
+        while True:
             print("Turno Jugador 2")
             pokemon2 = seleccionar_pokemon()
+            if pokemon2:
+                break
+            print("Inténtalo de nuevo...")
 
-            iniciar_batalla(pokemon1, pokemon2, modo_vs_cpu=False)
-
-
+        iniciar_batalla(pokemon1, pokemon2, modo_vs_cpu=False)
 
     elif opcion == "2":
-        pokemon1 = seleccionar_pokemon() 
-        if pokemon1:
-            seleccion_random = random.choice(["1", "2", "3", "4"])
-            pokemon2 = seleccionar_pokemon(seleccion_random) 
-            print(f"La computadora ha seleccionado a {pokemon2.nombre}!")
-
-            iniciar_batalla(pokemon1, pokemon2, modo_vs_cpu=True)
+        while True:
+            pokemon1 = seleccionar_pokemon()
+            if pokemon1:
+                break
+            print("Inténtalo de nuevo...")
+        
+       
+        seleccion_random = random.choice(["1", "2", "3", "4", "5", "6", "7", "8"])
+        pokemon2 = seleccionar_pokemon(seleccion_random, entrenador="Computadora")
+        
+        iniciar_batalla(pokemon1, pokemon2, modo_vs_cpu=True) 
         
 
 
